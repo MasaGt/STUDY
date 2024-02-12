@@ -11,7 +11,7 @@
 
 ### Fake ESM と Native ESM
 
-- Fake ESM: EcmaScriptもモジュールを書き、BabelなどでCommonJSにトランスパイルしてからNodeで実行する
+- Fake ESM: EcmaScriptでコードを書き、BabelなどでCommonJSにトランスパイルしてからNodeで実行する
 
 - Native ESM: EcmaScriptをそのままNodeで実行する
 
@@ -89,7 +89,6 @@
   ```
   *testMatchの代わりにtestRegexという項目を設定してもいい
 
-
 <br>
 
 *node --experimental-vm-modulesは実験的な機能のため、バグや機能不足がある可能性もあるので注意
@@ -165,6 +164,7 @@ jest.mock("./baz", () => {
 しかし、EcmaScriptでは静的インポートは巻き上げられ、jest.unstable_mockModuleは巻き上げられない。よって、以下のコードはjestのモックの正しい処理順ではない
 
 ```js
+// EcmaScript
 import { jest } from "@jest/globals";
 
 // モック対象を内部で使っているテスト対象のインポート
@@ -180,6 +180,7 @@ jest.unstable_mockModule("./baz", () => {
 
 jest.mock()はmock宣言 → import の順で処理するためにawaitの使える動的インポートを利用するしかないので以下の書き方が必要になる
 ```js
+// EcmaScript
 import { jest } from "@jest/globals";
 
 // jest.mock宣言
@@ -189,4 +190,19 @@ jest.unstable_mockModule("./baz", () => {
 
 // モック対象を内部で使っているテスト対象のインポート
 const { テスト対象 } = await import("./bar");
+```
+
+<br>
+
+*ちなみに、CommonJSのrequireは巻き上げが起こらない
+```js
+// CommonJS
+
+// requireする前に対象のモジュールにアクセスすることはできない
+path.resolve(__dirname, "path"); /
+/**
+ * Cannot access 'path' before initialization
+ */
+
+const path = require("path");
 ```
