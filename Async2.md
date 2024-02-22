@@ -126,10 +126,10 @@ promise.catch((result) => {
 - 内部的に次の3つの状態があるらしい
 
     - Fulfilled
-        - resolve（成功）したときの状態。このときonFulfilledが呼ばれる
+        - resolve（成功）したときの状態。このときonFulfilled ( Promise をインスタンス化するときの第1引数のコールバック) が呼ばれる
 
     - Rejected
-        - reject（失敗）または例外が発生したときの状態。このときonRejectedが呼ばれる
+        - reject（失敗）または例外が発生したときの状態。このときonRejected ( Promise をインスタンス化するときの第2引数のコールバック) が呼ばれる
 
     - Pending
         - FulfilledまたはRejectedではない状態
