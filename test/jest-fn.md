@@ -11,7 +11,9 @@
 
 - jest.fn() は Test Stub と Test Spy の両方を併せ持つイメージ
 
-```js:test.js
+```js
+// test.js
+
 test("jest.fn()の使用例", () => {
     // 引数nを受け取り、nをそのまま返すようなモック関数を設定
     const mockFunc = jest.fn((n) => {return n});
@@ -36,7 +38,9 @@ test("jest.fn()の使用例", () => {
 
 #### jest.fn() の引数に何も渡さないと、undefined を返却するモック関数が定義される
 
-```js:test.js
+```js
+// test.js
+
 // undefineを返す中身のないモック関数
 const mockFunc2 = jest.fn();
 
@@ -56,7 +60,9 @@ expect(mockFunck.mock.results[0].value).toBeUndefined() // pass
     - jest.fn()のオブジェクト.mock.results
         - モック関数の戻り値などが記録されている
 
-```js:test.js
+```js
+// test.js
+
 // モック関数の設定
 const mockFunc = jest.fn();
 mockFunc('test');
@@ -88,7 +94,8 @@ expect(mockFunc.mock.results[0].value).toBeUndefined();
     - 通常は mockReturnValueOnce をチェーンしていった最後に設定する
     - 戻り値に何も設定しないと undefined を返す
 
-```js: test.js
+```js
+// test.js
 const mockFunc = jest.fn();
 /**
  * 1回目の戻り値: 10
@@ -117,7 +124,9 @@ expect(mockFunc).nthReturnedWith(3, false);
 
     -> jest.fn() のデフォルトの実装での戻り値になる
 
-```js:test.js
+```js
+// test.js
+
 // jest.fn()のデフォルトの実装
 const mockFunc = jest.fn(() => {
     return 'this is mock';
@@ -152,7 +161,8 @@ expect(mockFunc).nthReturnedWith(2, 'this is mock'); //pass
 - expect().toHaveBeenNthCalledWith(n, arg1, ...)
     - **n は 1 からスタートする**
 
-```js:test.js
+```js
+// test.js
 const mockFunc = jest.fn();
 
 mockFunc(10,11);
@@ -178,7 +188,8 @@ expect(mockFunc).toHaveBeenNthCalledWith(2, true); //pass
 
 - expect().nthReturnedWith(n, value)
 
-```js:test.js
+```js
+// test.js
 const mockFunc = jest.fn();
 mockFunc.mockReturnValueOnce(10);
 
@@ -204,7 +215,8 @@ expect(mockFunc).nthReturnedWith(2, undefined);
 
 - expect().toHaveBeenCalled()
 
-```js:test.js
+```js
+// test.js
 const mockFunc = jest.fn();
 
 mockFunc();
@@ -223,7 +235,8 @@ expect(mockFunc).toHaveBeenCalled(); // pass
 
 - expect().toHaveBeenCalledTimes()
 
-```js:test.js
+```js
+// test.js
 const mockFunc = jest.fn();
 
 mockFunc();
