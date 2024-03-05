@@ -44,3 +44,34 @@
         let add = (a = 1, b = 2) => {
           return a + b;
         };
+
+---
+
+- バッククォートで引数を渡す
+
+以下の条件に当てはまる関数呼び出しの場合、括弧をつけずに関数を実行できる
+  1. 引数が文字列
+  2. 引数が1つ以下
+
+  ```js
+  const hello = (name) => {
+    return `Hello ${name}`;
+  }
+
+  // バッククォートで関数実行
+  console.log(hello`Bob`);
+  // Hello Bob
+  ```
+
+  <br>
+
+  特殊な仕様: バッククォートで実行される関数は、配列として引数を受け取る
+
+  ```js
+  const hello = (name) => {
+    console.log(name); // [ 'Bob' ]
+    return `Hello ${name}`;
+  }
+
+  console.log(hello`Bob`);
+  ```
